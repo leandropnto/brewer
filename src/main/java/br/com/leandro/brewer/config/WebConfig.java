@@ -9,6 +9,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.spring4.SpringTemplateEngine;
@@ -76,6 +77,18 @@ public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationCon
         resolver.setSuffix(".html");
         resolver.setCharacterEncoding("UTF-8");
         resolver.setTemplateMode(TemplateMode.HTML);
+        resolver.setCacheTTLMs(0L);//desliga o cache do thymeleaf! da tilt com o intelliJ em desenv
         return resolver;
+    }
+
+    /**
+     * Método que configura o spring para procurar os arquivos estáticos da aplicação
+     *
+     * @param registry
+     */
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+
+        registry.addResourceHandler("/**").addResourceLocations("classpath:/static/");
     }
 }
