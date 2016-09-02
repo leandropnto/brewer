@@ -1,8 +1,10 @@
 package br.com.leandro.brewer.controller;
 
 import br.com.leandro.brewer.model.Cerveja;
+import br.com.leandro.brewer.repository.Cervejas;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -20,11 +22,17 @@ import javax.validation.Valid;
 public class CervejasController {
 
     private static final Logger logger = LoggerFactory.getLogger(CervejasController.class);
+    private final Cervejas cervejas;
+
+    @Autowired
+    public CervejasController(Cervejas cervejas) {
+        this.cervejas = cervejas;
+    }
 
     @RequestMapping("/cervejas/novo")
     public String novo(Cerveja cerveja) {
-        logger.error("cerveja/CadastroCerveja");
         String formulario = "cerveja/CadastroCerveja";
+        cervejas.findAll().stream().forEach(f -> logger.info(f.getNome()));
         return formulario;
     }
 
