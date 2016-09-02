@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.util.Optional;
 
 /**
  * Classe responsável por controlar as requisições para o resource cervejas
@@ -32,7 +33,10 @@ public class CervejasController {
     @RequestMapping("/cervejas/novo")
     public String novo(Cerveja cerveja) {
         String formulario = "cerveja/CadastroCerveja";
-        cervejas.findAll().stream().forEach(f -> logger.info(f.getNome()));
+        //cervejas.findAll().stream().forEach(f -> logger.info(f.getNome()));
+        final Optional<Cerveja> cervejaOp = cervejas.findBySkuIgnoreCase("AA1111");
+
+        cervejaOp.ifPresent(cerveja1 -> logger.info(cerveja1.getNome()));
         return formulario;
     }
 
