@@ -45,6 +45,8 @@ public class CervejasController {
         view.addObject("estilos", estilos.findAll());
         view.addObject("origens", Origem.values());
 
+        cervejas.findAll().forEach(c->logger.info("Cerveja: " + c.getNome()));
+
         return view;
     }
 
