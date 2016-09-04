@@ -5,6 +5,7 @@ import br.com.leandro.brewer.model.Origem;
 import br.com.leandro.brewer.model.Sabor;
 import br.com.leandro.brewer.repository.Cervejas;
 import br.com.leandro.brewer.repository.Estilos;
+import br.com.leandro.brewer.service.CadastroCervejaService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,11 +27,13 @@ import javax.validation.Valid;
 public class CervejasController {
 
     private static final Logger logger = LoggerFactory.getLogger(CervejasController.class);
+    private final CadastroCervejaService cadastroCervejaService;
     private final Cervejas cervejas;
     private final Estilos estilos;
 
     @Autowired
-    public CervejasController(Cervejas cervejas, Estilos estilos) {
+    public CervejasController(CadastroCervejaService cadastroCervejaService, Cervejas cervejas, Estilos estilos) {
+        this.cadastroCervejaService = cadastroCervejaService;
         this.cervejas = cervejas;
         this.estilos = estilos;
     }
@@ -51,7 +54,7 @@ public class CervejasController {
             return novo(cerveja);
         }
 
-        System.out.println(">>> sku: " + cerveja.getSku());
+        cadastroCervejaService.salvar(cerveja);
         attributes.addFlashAttribute("mensagem", "Cerveja salva com sucesso.");
         return new ModelAndView("redirect:/cervejas/novo");
     }

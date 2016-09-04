@@ -1,6 +1,7 @@
 package br.com.leandro.brewer.config.init;
 
 import br.com.leandro.brewer.config.JPAConfig;
+import br.com.leandro.brewer.config.ServiceConfig;
 import br.com.leandro.brewer.config.WebConfig;
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
@@ -15,7 +16,7 @@ public class AppInitializer extends AbstractAnnotationConfigDispatcherServletIni
     @Override
     protected Class<?>[] getRootConfigClasses() {
         return new Class<?>[]{
-                JPAConfig.class};
+                JPAConfig.class, ServiceConfig.class};
     }
 
     @Override
