@@ -1,5 +1,6 @@
 package br.com.leandro.brewer.model;
 
+import br.com.leandro.brewer.validation.SKU;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.*;
@@ -19,6 +20,7 @@ public class Cerveja implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long codigo;
 
+    @SKU
     @NotBlank(message = "SKU é obrigatório")
     private String sku;
 
