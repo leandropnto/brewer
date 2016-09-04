@@ -38,13 +38,12 @@
 
     <div class="container-fluid">
 
-        <div class="alert  alert-danger  alert-dismissible" role="alert">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
-                    aria-hidden="true">&times;</span></button>
-            <i class="fa  fa-exclamation-circle"></i> Já existe um produto com o nome informado.
-        </div>
+
+        <div th:replace="fragments/MensagensSucesso :: mensagensSucesso"></div>
 
         <form method="POST" th:object="${cerveja}" class="form-vertical  js-form-loading">
+
+            <div th:replace="fragments/MensagensErroValidacao :: mensagensErro"></div>
 
             <div class="row">
                 <div class="col-sm-2 form-group">
