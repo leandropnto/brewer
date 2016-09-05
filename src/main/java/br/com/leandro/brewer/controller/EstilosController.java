@@ -2,6 +2,7 @@ package br.com.leandro.brewer.controller;
 
 import br.com.leandro.brewer.model.Estilo;
 import br.com.leandro.brewer.service.CadastroEstiloService;
+import br.com.leandro.brewer.service.exception.NomeEstiloJaCadastradoException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,20 +33,24 @@ public class EstilosController {
     @RequestMapping()
     public ModelAndView novo(Estilo estilo) {
         final ModelAndView view = new ModelAndView("estilo/CadastroEstilo");
-        if (LOGGER.isDebugEnabled()){
-            estilos.getEstilos().findAll().stream().forEach(e->LOGGER.debug(e.getNome()));
+        if (LOGGER.isDebugEnabled()) {
+            estilos.getEstilos().findAll().stream().forEach(e -> LOGGER.debug(e.getNome()));
         }
         return view;
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ModelAndView salvar(@Valid Estilo estilo, BindingResult result, RedirectAttributes attributes){
+    public ModelAndView salvar(@Valid Estilo estilo, BindingResult result, RedirectAttributes attributes) {
         if (result.hasErrors()) {
             return novo(estilo);
         }
 
-
-        estilos.salvar(estilo);
+        try {
+            estilos.salvar(estilo);
+        } catch (NomeEstiloJaCadastradoException e) {
+            result.rejectValue("nome", e.getMessage(), e.getMessage());
+            return novo(estilo);
+        }
         attributes.addFlashAttribute("mensagem", "Estilo cadastrado com sucesso.");
         return new ModelAndView("redirect:/estilos");
 
