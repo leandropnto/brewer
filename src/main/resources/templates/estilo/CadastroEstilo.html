@@ -38,14 +38,15 @@
 
     <div class="container-fluid">
 
+        <div th:replace="fragments/MensagensSucesso :: mensagensSucesso"></div>
+        <form method="POST" th:object="${estilo}" class="form-vertical  js-form-loading" >
 
-        <form method="POST" th:object="${estilo}" class="form-vertical  js-form-loading">
-
+            <div th:replace="fragments/MensagensErroValidacao :: mensagensErro"></div>
             <div class="row">
 
-                <div class="col-sm-12 form-group">
-                    <label for="nome">Nome</label>
-                    <input id="nome" type="text" class="form-control"/>
+                <div class="col-sm-12 form-group" th:classappend="${#fields.hasErrors('nome')}">
+                    <label for="nome" class="control-label">Nome</label>
+                    <input id="nome" type="text" class="form-control" th:field="*{nome}"/>
                 </div>
             </div>
 
