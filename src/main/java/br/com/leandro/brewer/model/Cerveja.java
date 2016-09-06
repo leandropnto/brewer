@@ -155,6 +155,11 @@ public class Cerveja implements Serializable {
         this.estilo = estilo;
     }
 
+    @PrePersist @PreUpdate
+    public void prePersitUpdate(){
+        sku = sku.toUpperCase();
+    }
+
     @Override
     public int hashCode() {
         final int prime = 31;
