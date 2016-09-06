@@ -151,5 +151,9 @@
 
     <div th:replace="estilo/CadastroRapidoEstilo :: modal"></div>
 </section>
+
+    <th:block layout:fragment="javascript-extra">
+        <script src="../../static/javascripts/estilo_cadastro-rapido.js" th:src="@{/javascripts/estilo_cadastro-rapido.js}"></script>
+    </th:block>
 </body>
 </html>

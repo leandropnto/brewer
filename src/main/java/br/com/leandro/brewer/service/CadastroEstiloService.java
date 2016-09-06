@@ -24,12 +24,13 @@ public class CadastroEstiloService {
     }
 
     @Transactional
-    public void salvar(Estilo estilo){
+    public Estilo salvar(Estilo estilo) {
 
         final Optional<Estilo> estiloOptional = estilos.findByNomeIgnoreCase(estilo.getNome());
-
-        estiloOptional.ifPresent( (e) -> {throw new NomeEstiloJaCadastradoException("Nome do estilo já cadastrado");});
-        estilos.save(estilo);
+        estiloOptional.ifPresent((e) -> {
+            throw new NomeEstiloJaCadastradoException("Nome do estilo já cadastrado");
+        });
+        return estilos.saveAndFlush(estilo);
     }
 
     public Estilos getEstilos() {
