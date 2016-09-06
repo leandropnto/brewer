@@ -34,7 +34,7 @@ public class EstilosController {
         this.estilos = estilos;
     }
 
-    @RequestMapping()
+    @RequestMapping(method = RequestMethod.GET)
     public ModelAndView novo(Estilo estilo) {
         final ModelAndView view = new ModelAndView("estilo/CadastroEstilo");
         if (LOGGER.isDebugEnabled()) {

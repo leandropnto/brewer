@@ -8,6 +8,9 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
+ * Classe responsável pelo mapeamento para a entidade estilo na base de dados.
+ * @author Leandro
+ * @version 1.0
  * Created by lpinto on 01/09/2016.
  */
 @Entity
