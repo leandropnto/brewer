@@ -2,6 +2,7 @@ package br.com.leandro.brewer.config;
 
 import br.com.leandro.brewer.controller.CervejasController;
 import br.com.leandro.brewer.controller.converter.EstiloConverter;
+import br.com.leandro.brewer.thymeleaf.BrewerDialect;
 import nz.net.ultraq.thymeleaf.LayoutDialect;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
@@ -70,6 +71,7 @@ public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationCon
         engine.setEnableSpringELCompiler(true);
         engine.setTemplateResolver(templateResolver());
         engine.addDialect(new LayoutDialect());
+        engine.addDialect(new BrewerDialect());
         return engine;
     }
 

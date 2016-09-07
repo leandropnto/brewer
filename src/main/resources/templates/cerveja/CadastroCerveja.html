@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorator="layout/LayoutPadrao">
+      layout:decorator="layout/LayoutPadrao"
+      xmlns:brewer="http://leandro.pnto.com">
 <head>
     <meta charset="UTF-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -16,13 +17,19 @@
     <link rel="stylesheet" type="text/css" href="../../static/layout/application.css"
           th:href="@{/layout/stylesheets/application.css}"/>
 
+    <link rel="stylesheet" type="text/css" href="../../static/stylesheets/vendors/upload.min.css"
+          th:href="@{/stylesheets/vendors/upload.min.css}"/>
+
     <link rel="stylesheet" type="text/css" href="../../static/stylesheets/brewer.css"
           th:href="@{/stylesheets/brewer.css}"/>
+
+
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+
     <![endif]-->
 </head>
 
@@ -39,37 +46,37 @@
     <div class="container-fluid">
 
 
-        <div th:replace="fragments/MensagensSucesso :: mensagensSucesso"></div>
-
         <form method="POST" th:object="${cerveja}" class="form-vertical  js-form-loading">
 
-            <div th:replace="fragments/MensagensErroValidacao :: mensagensErro"></div>
+            <brewer:message/>
 
             <div class="row">
-                <div class="col-sm-2 form-group" th:classappend="${#fields.hasErrors('sku')} ? has-error">
+                <div class="col-sm-2 form-group" brewer:classforerror="sku">
                     <label for="sku" class="control-label">SKU</label>
                     <input id="sku" type="text" class="form-control" th:field="*{sku}"/>
                 </div>
 
-                <div class="col-sm-10 form-group" th:classappend="${#fields.hasErrors('nome')} ? has-error">
+                <div class="col-sm-10 form-group" brewer:classforerror="nome">
                     <label for="nome" class="control-label">Nome</label>
                     <input id="nome" class="form-control" th:field="*{nome}"/>
                 </div>
             </div>
 
-            <div class="form-group" th:classappend="${#fields.hasErrors('descricao')} ? has-error">
+            <div class="form-group" brewer:classforerror="descricao">
                 <label for="descricao" class="control-label">Descrição</label>
                 <textarea id="descricao" class="form-control" th:field="*{descricao}" rows="3"></textarea>
             </div>
 
             <div class="row">
 
-                <div class="form-group  col-sm-3" th:classappend="${#fields.hasErrors('estilo')} ? has-error">
+                <div class="form-group  col-sm-3" brewer:classforerror="estilo">
                     <label for="estilo" class="control-label">Estilo</label>
                     <div class="bw-field-action">
                         <select id="estilo" type="text" class="form-control" th:field="*{estilo}">
                             <option value="">Selecione o estilo</option>
-                            <option th:each="estilo : ${estilos}" th:value="${estilo.codigo}" th:text="${estilo.nome}">Pale Lager</option>
+                            <option th:each="estilo : ${estilos}" th:value="${estilo.codigo}" th:text="${estilo.nome}">
+                                Pale Lager
+                            </option>
                         </select>
                         <div class="bw-field-action__icon">
                             <a href="#" data-toggle="modal" data-target="#modalCadastroRapidoEstilo">
@@ -78,7 +85,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="form-group  col-sm-3" th:classappend="${#fields.hasErrors('sabor')} ? has-error">
+                <div class="form-group  col-sm-3" brewer:classforerror="sabor">
                     <label for="sabor" class="control-label">Sabor</label>
 
                     <select id="sabor" type="text" class="form-control" th:field="*{sabor}">
@@ -91,21 +98,23 @@
 
                 </div>
 
-                <div class="form-group  col-sm-3" th:classappend="${#fields.hasErrors('teorAlcoolico')} ? has-error">
+                <div class="form-group  col-sm-3" brewer:classforerror="teorAlcoolico">
                     <label for="teorAlcoolico" class="control-label">Teor Alcoólico</label>
                     <div class="input-group">
-                        <input id="teorAlcoolico" type="text" class="form-control js-decimal" th:field="*{teorAlcoolico}"/>
+                        <input id="teorAlcoolico" type="text" class="form-control js-decimal"
+                               th:field="*{teorAlcoolico}"/>
                         <div class="input-group-addon">%</div>
                     </div>
 
                 </div>
 
 
-                <div class="form-group col-lg-3 col-sm-6" th:classappend="${#fields.hasErrors('origem')} ? has-error">
+                <div class="form-group col-lg-3 col-sm-6" brewer:classforerror="origem">
                     <label class="control-label">Origem</label>
                     <div>
                         <div class="radio radio-inline" th:each="origem : ${origens}">
-                            <input type="radio" name="origem" th:id="|id_${origem}|" th:value="${origem}" th:field="*{origem}"/>
+                            <input type="radio" name="origem" th:id="|id_${origem}|" th:value="${origem}"
+                                   th:field="*{origem}"/>
                             <label th:text="${origem.descricao}" th:for="|id_${origem}|">Nacional</label>
                         </div>
                     </div>
@@ -115,7 +124,7 @@
             </div>
 
             <div class="row">
-                <div class="form-group  col-sm-3" th:classappend="${#fields.hasErrors('valor')} ? has-error">
+                <div class="form-group  col-sm-3" brewer:classforerror="valor">
                     <label for="valor" class="control-label">Valor</label>
                     <div class="input-group">
                         <div class="input-group-addon">R$</div>
@@ -123,7 +132,7 @@
                     </div>
 
                 </div>
-                <div class="form-group  col-sm-3" th:classappend="${#fields.hasErrors('comissao')} ? has-error">
+                <div class="form-group  col-sm-3" brewer:classforerror="comissao">
                     <label for="comissao" class="control-label">Comissão</label>
                     <div class="input-group">
                         <input id="comissao" type="text" class="form-control js-decimal" th:field="*{comissao}"/>
@@ -131,12 +140,25 @@
                     </div>
 
                 </div>
-                <div class="form-group  col-sm-3" th:classappend="${#fields.hasErrors('quantidadeEstoque')} ? has-error">
+                <div class="form-group  col-sm-3" brewer:classforerror="quantidadeEstoque">
                     <label for="estoque" class="control-label">Estoque</label>
                     <div class="input-group">
                         <input id="estoque" type="text" class="form-control js-plain" th:field="*{quantidadeEstoque}"/>
                     </div>
 
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-sm-12"><label for="upload-select" class="control-label">Foto</label>
+                    <div id="upload-drop" class="bw-upload">
+                        <i class="glyphicon glyphicon-cloud-upload"></i><span>Arraste a foto aqui ou </span>
+                        <a href="#" class="bw-upload-form-file">selecione
+                            <input id="upload-select"
+                                   type="file"
+                                   accept=".jpg,.jpeg,.png"/>
+                        </a>
+                    </div>
                 </div>
             </div>
 
@@ -152,8 +174,29 @@
     <div th:replace="estilo/CadastroRapidoEstilo :: modal"></div>
 </section>
 
-    <th:block layout:fragment="javascript-extra">
-        <script src="../../static/javascripts/estilo_cadastro-rapido.js" th:src="@{/javascripts/estilo_cadastro-rapido.js}"></script>
-    </th:block>
+<th:block layout:fragment="javascript-extra">
+    <script src="../../static/javascripts/estilo_cadastro-rapido.js"
+            th:src="@{/javascripts/estilo_cadastro-rapido.js}"></script>
+
+    <script src="../../static/javascripts/vendors/uikit.min.js"
+            th:src="@{/javascripts/vendors/uikit.min.js}"></script>
+    <script src="../../static/javascripts/vendors/upload.min.js"
+            th:src="@{/javascripts/vendors/upload.min.js}"></script>
+
+    <script>
+        $(function() {
+            var settings = {
+                type: 'json',
+                filelimit: 1,
+                allow: '*.(jpg|jpeg|png)',
+                action: '/fotos'
+
+            };
+
+            UIkit.uploadSelect($('#upload-select'), settings);
+            UIkit.uploadDrop($('#upload-drop'), settings);
+        });
+    </script>
+</th:block>
 </body>
 </html>
