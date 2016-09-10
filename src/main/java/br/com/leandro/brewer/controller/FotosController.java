@@ -1,5 +1,6 @@
 package br.com.leandro.brewer.controller;
 
+import br.com.leandro.brewer.dto.FotoDTO;
 import br.com.leandro.brewer.storage.FotosStorageRunnable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,8 +17,8 @@ import org.springframework.web.multipart.MultipartFile;
 public class FotosController {
 
     @PostMapping
-    public DeferredResult<String> upload(@RequestParam("files[]") MultipartFile[] files){
-        DeferredResult<String> resultado = new DeferredResult<>();
+    public DeferredResult<FotoDTO> upload(@RequestParam("files[]") MultipartFile[] files){
+        DeferredResult<FotoDTO> resultado = new DeferredResult<>();
 
         Thread thread = new Thread(new FotosStorageRunnable(files, resultado));
         thread.start();

@@ -1,6 +1,7 @@
 package br.com.leandro.brewer.storage;
 
 import br.com.leandro.brewer.controller.FotosController;
+import br.com.leandro.brewer.dto.FotoDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.context.request.async.DeferredResult;
@@ -14,9 +15,9 @@ public class FotosStorageRunnable implements Runnable {
     private static final Logger LOGGER = LoggerFactory.getLogger(FotosController.class);
 
     private final MultipartFile[] files;
-    private final DeferredResult<String> resultado;
+    private final DeferredResult<FotoDTO> resultado;
 
-    public FotosStorageRunnable(MultipartFile[] files, DeferredResult<String> resultado) {
+    public FotosStorageRunnable(MultipartFile[] files, DeferredResult<FotoDTO> resultado) {
         this.files = files;
         this.resultado = resultado;
     }
@@ -25,6 +26,9 @@ public class FotosStorageRunnable implements Runnable {
     public void run() {
         LOGGER.debug("files>>> " + files[0].getSize());
         //TODO: Salvar a foto no sistema de arquivos
-        resultado.setResult("OK! Foto recebida");
+        final String nomeFoto = files[0].getOriginalFilename();
+        final String contentType = files[0].getContentType();
+
+        resultado.setResult(new FotoDTO(nomeFoto, contentType));
     }
 }
