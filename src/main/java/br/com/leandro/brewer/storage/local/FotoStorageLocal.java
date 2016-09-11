@@ -3,6 +3,7 @@ package br.com.leandro.brewer.storage.local;
 import br.com.leandro.brewer.storage.FotoStorage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -66,6 +67,16 @@ public class FotoStorageLocal implements FotoStorage {
         }
 
 
+    }
+
+    @Override
+    public byte[] recuperarFotoTemporaria(String nome) {
+        Assert.hasText(nome, "Informe o nome da foto");
+        try {
+            return Files.readAllBytes(localTemporario.resolve(nome));
+        } catch (IOException e) {
+            throw new RuntimeException("Não foi possível ler a foto", e);
+        }
     }
 
     private String renomearArquivo(String nomeOriginal) {

@@ -54,3 +54,12 @@ margin: 6px 0 0 5px;
 
     font-size: 500px;
 }
+
+/*
+#####################
+#UTILIDADES
+####################
+*/
+.bw-required > .control-label:after{
+    content: "*";
+}
