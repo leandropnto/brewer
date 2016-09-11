@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -23,6 +24,7 @@ import javax.validation.Valid;
  * Created by leandro on 31/08/2016.
  */
 @Controller
+@RequestMapping("/cervejas")
 public class CervejasController {
 
     private static final Logger logger = LoggerFactory.getLogger(CervejasController.class);
@@ -37,7 +39,7 @@ public class CervejasController {
         this.estilos = estilos;
     }
 
-    @RequestMapping("/cervejas/novo")
+    @RequestMapping("/novo")
     public ModelAndView novo(Cerveja cerveja) {
         final ModelAndView view = new ModelAndView("cerveja/CadastroCerveja");
         view.addObject("sabores", Sabor.values());
@@ -49,7 +51,7 @@ public class CervejasController {
         return view;
     }
 
-    @RequestMapping(value = "/cervejas/novo", method = RequestMethod.POST)
+    @RequestMapping(value = "/novo", method = RequestMethod.POST)
     public ModelAndView cadastrar(@Valid Cerveja cerveja, BindingResult result, RedirectAttributes attributes) {
         if (result.hasErrors()) {
             return novo(cerveja);
@@ -60,5 +62,17 @@ public class CervejasController {
         return new ModelAndView("redirect:/cervejas/novo");
     }
 
+    @GetMapping
+    public ModelAndView pesquisar(){
+        ModelAndView view = new ModelAndView("cerveja/PesquisaCervejas");
+
+        view.addObject("cervejas", cervejas.findAll());
+        view.addObject("sabores", Sabor.values());
+        view.addObject("estilos", estilos.findAll());
+        view.addObject("origens", Origem.values());
+
+        return view;
+
+    }
 
 }
