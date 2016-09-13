@@ -2,6 +2,7 @@ package br.com.leandro.brewer.model;
 
 import br.com.leandro.brewer.validation.SKU;
 import org.hibernate.validator.constraints.NotBlank;
+import org.springframework.util.StringUtils;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -174,6 +175,10 @@ public class Cerveja implements Serializable {
 
     public void setContentType(String contentType) {
         this.contentType = contentType;
+    }
+
+    public String getFotoOuMock(){
+        return !StringUtils.isEmpty(foto)? foto : "cerveja-mock.png";
     }
 
     @PrePersist @PreUpdate

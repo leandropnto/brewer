@@ -2,7 +2,9 @@ package br.com.leandro.brewer.service;
 
 import br.com.leandro.brewer.model.Cerveja;
 import br.com.leandro.brewer.repository.Cervejas;
+import br.com.leandro.brewer.service.event.cerveja.CervejaSalvaEvent;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,14 +15,19 @@ import org.springframework.transaction.annotation.Transactional;
 public class CadastroCervejaService {
 
     private final Cervejas cervejas;
+    private final ApplicationEventPublisher publisher;
 
     @Autowired
-    public CadastroCervejaService(Cervejas cervejas) {
+    public CadastroCervejaService(Cervejas cervejas,
+                                  ApplicationEventPublisher publisher) {
         this.cervejas = cervejas;
+        this.publisher = publisher;
     }
 
     @Transactional
-    public void salvar(Cerveja cerveja){
+    public void salvar(Cerveja cerveja) {
         cervejas.save(cerveja);
+
+        publisher.publishEvent(new CervejaSalvaEvent(cerveja));
     }
 }

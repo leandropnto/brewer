@@ -1,6 +1,8 @@
 package br.com.leandro.brewer.storage.local;
 
 import br.com.leandro.brewer.storage.FotoStorage;
+import net.coobird.thumbnailator.Thumbnails;
+import net.coobird.thumbnailator.name.Rename;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.Assert;
@@ -74,6 +76,31 @@ public class FotoStorageLocal implements FotoStorage {
         Assert.hasText(nome, "Informe o nome da foto");
         try {
             return Files.readAllBytes(localTemporario.resolve(nome));
+        } catch (IOException e) {
+            throw new RuntimeException("Não foi possível ler a foto", e);
+        }
+    }
+
+    @Override
+    public void salvar(String foto) {
+        try {
+            Files.move(this.localTemporario.resolve(foto), this.local.resolve(foto));
+        } catch (IOException e) {
+            throw new RuntimeException("Erro movendo a foto para destino final.", e);
+        }
+
+        try {
+            Thumbnails.of(this.local.resolve(foto).toString()).size(40, 68).toFiles(Rename.PREFIX_DOT_THUMBNAIL);
+        } catch (IOException e) {
+            throw new RuntimeException("Erro gerando o thumbnail");
+        }
+    }
+
+    @Override
+    public byte[] recuperar(String nome) {
+        Assert.hasText(nome, "Informe o nome da foto");
+        try {
+            return Files.readAllBytes(local.resolve(nome));
         } catch (IOException e) {
             throw new RuntimeException("Não foi possível ler a foto", e);
         }
