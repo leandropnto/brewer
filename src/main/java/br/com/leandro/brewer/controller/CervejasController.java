@@ -67,7 +67,7 @@ public class CervejasController {
     public ModelAndView pesquisar(CervejaFilter cervejaFilter, BindingResult result){
         ModelAndView view = new ModelAndView("cerveja/PesquisaCervejas");
 
-        view.addObject("cervejas", cervejas.findAll());
+        view.addObject("cervejas", cervejas.filtrar(cervejaFilter));
         view.addObject("sabores", Sabor.values());
         view.addObject("estilos", estilos.findAll());
         view.addObject("origens", Origem.values());

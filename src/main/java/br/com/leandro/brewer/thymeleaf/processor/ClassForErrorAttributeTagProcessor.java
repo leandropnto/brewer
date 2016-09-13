@@ -29,6 +29,7 @@ public class ClassForErrorAttributeTagProcessor extends AbstractAttributeTagProc
         if (temErro){
             String classesExistentes = tag.getAttributeValue("class");
             structureHandler.setAttribute("class", classesExistentes + " has-error");
+
         }
 
     }
