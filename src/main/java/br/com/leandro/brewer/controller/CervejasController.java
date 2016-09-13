@@ -5,6 +5,7 @@ import br.com.leandro.brewer.model.Origem;
 import br.com.leandro.brewer.model.Sabor;
 import br.com.leandro.brewer.repository.Cervejas;
 import br.com.leandro.brewer.repository.Estilos;
+import br.com.leandro.brewer.repository.filter.CervejaFilter;
 import br.com.leandro.brewer.service.CadastroCervejaService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -63,7 +64,7 @@ public class CervejasController {
     }
 
     @GetMapping
-    public ModelAndView pesquisar(){
+    public ModelAndView pesquisar(CervejaFilter cervejaFilter, BindingResult result){
         ModelAndView view = new ModelAndView("cerveja/PesquisaCervejas");
 
         view.addObject("cervejas", cervejas.findAll());
