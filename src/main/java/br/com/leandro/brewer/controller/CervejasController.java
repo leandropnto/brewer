@@ -10,6 +10,8 @@ import br.com.leandro.brewer.service.CadastroCervejaService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -64,10 +66,10 @@ public class CervejasController {
     }
 
     @GetMapping
-    public ModelAndView pesquisar(CervejaFilter cervejaFilter, BindingResult result){
+    public ModelAndView pesquisar(CervejaFilter cervejaFilter, BindingResult result, @PageableDefault(size = 2) Pageable pageable){
         ModelAndView view = new ModelAndView("cerveja/PesquisaCervejas");
 
-        view.addObject("cervejas", cervejas.filtrar(cervejaFilter));
+        view.addObject("cervejas", cervejas.filtrar(cervejaFilter, pageable));
         view.addObject("sabores", Sabor.values());
         view.addObject("estilos", estilos.findAll());
         view.addObject("origens", Origem.values());
