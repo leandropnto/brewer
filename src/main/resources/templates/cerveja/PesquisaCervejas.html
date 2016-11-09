@@ -126,7 +126,7 @@
                 <thead>
                 <tr>
                     <th class="table-cervejas-col-foto"></th>
-                    <th class="table-cervejas-col-sku">SKU</th>
+                    <th class="table-cervejas-col-sku">SKU <span class="caret"></span></th>
                     <th class="table-cervejas-col-nome">Nome</th>
                     <th class="table-cervejas-col-estilo">Estilo</th>
                     <th class="table-cervejas-col-origem">Origem</th>
@@ -135,24 +135,24 @@
                 </tr>
                 </thead>
                 <tbody>
-                    <tr th:each="cerveja:${pagina.conteudo}">
-                        <td class="text-center">
-                            <img th:src="@{/fotos/thumbnail.{foto}(foto=${cerveja.fotoOuMock})}" class="img-responsive"/>
-                        </td>
-                        <td class="text-center" th:text="${cerveja.sku}">AA1234</td>
-                        <td th:text="${cerveja.nome}">Cerveja Stella</td>
-                        <td th:text="${cerveja.estilo.nome}">Lager</td>
-                        <td th:text="${cerveja.origem.descricao}">Internacional</td>
-                        <td class="text-right" th:text="|R$ ${cerveja.valor}|">R$ 8.00</td>
-                        <td class="text-center">
-                            <a class="btn  btn-link  btn-xs" title="Editar">
-                                <i class="glyphicon glyphicon-pencil"></i>
-                            </a>
-                            <a class="btn  btn-link  btn-xs" title="Excluir">
-                                <i class="glyphicon glyphicon-remove"></i>
-                            </a>
-                        </td>
-                    </tr>
+                <tr th:each="cerveja:${pagina.conteudo}">
+                    <td class="text-center">
+                        <img th:src="@{/fotos/thumbnail.{foto}(foto=${cerveja.fotoOuMock})}" class="img-responsive"/>
+                    </td>
+                    <td class="text-center" th:text="${cerveja.sku}">AA1234</td>
+                    <td th:text="${cerveja.nome}">Cerveja Stella</td>
+                    <td th:text="${cerveja.estilo.nome}">Lager</td>
+                    <td th:text="${cerveja.origem.descricao}">Internacional</td>
+                    <td class="text-right" th:text="|R$ ${cerveja.valor}|">R$ 8.00</td>
+                    <td class="text-center">
+                        <a class="btn  btn-link  btn-xs" title="Editar">
+                            <i class="glyphicon glyphicon-pencil"></i>
+                        </a>
+                        <a class="btn  btn-link  btn-xs" title="Excluir">
+                            <i class="glyphicon glyphicon-remove"></i>
+                        </a>
+                    </td>
+                </tr>
                 <tr th:if="${pagina.vazia}">
                     <td colspan="7">Nenhuma Cerveja encontrada</td>
                 </tr>
@@ -164,7 +164,7 @@
             <nav>
                 <ul class="pagination pagination-sm">
                     <li th:class="${#bools.isTrue(pagina.primeira)} ? 'disabled'">
-                        <a href="#" th:href="${pagina.urlParaPagina(pagina.atual-1)}|"><span>&laquo;</span></a> </li>
+                        <a href="#" th:href="${pagina.urlParaPagina(pagina.atual-1)}|"><span>&laquo;</span></a></li>
 
                     <th:block th:each="p : ${#numbers.sequence(1, pagina.total)}">
                         <li th:class="${pagina.atual == p - 1}? 'active'">
@@ -175,7 +175,7 @@
 
                     <li th:class="${#bools.isTrue(pagina.ultima)} ? 'disabled'">
                         <a th:href="${pagina.urlParaPagina(pagina.atual+1)}"
-                           href="?page=3"><span>&raquo;</span></a> </li>
+                           href="?page=3"><span>&raquo;</span></a></li>
                 </ul>
             </nav>
         </div>
