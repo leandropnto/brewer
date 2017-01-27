@@ -165,25 +165,7 @@
             </table>
         </div>
 
-        <div class="cols-sm-12 text-center" th:if="${not pagina.vazia}">
-            <nav>
-                <ul class="pagination pagination-sm">
-                    <li th:class="${#bools.isTrue(pagina.primeira)} ? 'disabled'">
-                        <a href="#" th:href="${pagina.urlParaPagina(pagina.atual-1)}|"><span>&laquo;</span></a></li>
-
-                    <th:block th:each="p : ${#numbers.sequence(1, pagina.total)}">
-                        <li th:class="${pagina.atual == p - 1}? 'active'">
-                            <a th:href="${pagina.urlParaPagina(p - 1)}">[[${p}]]</a>
-                        </li>
-                    </th:block>
-
-
-                    <li th:class="${#bools.isTrue(pagina.ultima)} ? 'disabled'">
-                        <a th:href="${pagina.urlParaPagina(pagina.atual+1)}"
-                           href="?page=3"><span>&raquo;</span></a></li>
-                </ul>
-            </nav>
-        </div>
+        <brewer:pagination page="${pagina}"/>
     </div>
 </section>
 </body>

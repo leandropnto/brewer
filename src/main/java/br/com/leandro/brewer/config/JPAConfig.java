@@ -3,6 +3,7 @@ package br.com.leandro.brewer.config;
 import br.com.leandro.brewer.model.Cerveja;
 import br.com.leandro.brewer.repository.Cervejas;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.lookup.JndiDataSourceLookup;
@@ -18,9 +19,10 @@ import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
 /**
- * Created by lpinto on 02/09/2016.
+ * Created by Leandro on 02/09/2016.
  */
 @Configuration
+@ComponentScan(basePackageClasses = {Cervejas.class})
 @EnableJpaRepositories(basePackageClasses = Cervejas.class, enableDefaultTransactions = false)
 @EnableTransactionManagement
 public class JPAConfig {

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <link rel="stylesheet" type="text/css" href="../../static/layout/stylesheets/vendors.min.css"
+          th:href="@{/layout/stylesheets/vendors.min.css}"/>
+    <link rel="stylesheet" type="text/css" href="../../static/layout/stylesheets/algaworks.min.css"
+          th:href="@{/layout/stylesheets/algaworks.min.css}"/>
+    <link rel="stylesheet" type="text/css" href="../../static/layout/application.css"
+          th:href="@{/layout/stylesheets/application.css}"/>
+
+    <link rel="stylesheet" type="text/css" href="../../static/stylesheets/brewer.css"
+          th:href="@{/stylesheets/brewer.css}"/>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+<div th:fragment="pagination(pagina)">
+    <div class="cols-sm-12 text-center" th:if="${not pagina.vazia}">
+        <nav>
+            <ul class="pagination pagination-sm">
+                <li th:class="${#bools.isTrue(pagina.primeira)} ? 'disabled'">
+                    <a href="#" th:href="${pagina.urlParaPagina(pagina.atual-1)}|"><span>&laquo;</span></a></li>
+
+                <th:block th:each="p : ${#numbers.sequence(1, pagina.total)}">
+                    <li th:class="${pagina.atual == p - 1}? 'active'">
+                        <a th:href="${pagina.urlParaPagina(p - 1)}">[[${p}]]</a>
+                    </li>
+                </th:block>
+
+
+                <li th:class="${#bools.isTrue(pagina.ultima)} ? 'disabled'">
+                    <a th:href="${pagina.urlParaPagina(pagina.atual+1)}"
+                       href="?page=3"><span>&raquo;</span></a></li>
+            </ul>
+        </nav>
+    </div>
+</div>
+</body>
+</html>

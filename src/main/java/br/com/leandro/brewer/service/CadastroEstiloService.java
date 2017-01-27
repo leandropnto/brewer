@@ -2,8 +2,11 @@ package br.com.leandro.brewer.service;
 
 import br.com.leandro.brewer.model.Estilo;
 import br.com.leandro.brewer.repository.Estilos;
+import br.com.leandro.brewer.repository.filter.EstiloFilter;
 import br.com.leandro.brewer.service.exception.NomeEstiloJaCadastradoException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -36,4 +39,6 @@ public class CadastroEstiloService {
     public Estilos getEstilos() {
         return estilos;
     }
+
+
 }
