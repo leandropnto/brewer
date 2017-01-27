@@ -2,6 +2,7 @@ package br.com.leandro.brewer.thymeleaf;
 
 import br.com.leandro.brewer.thymeleaf.processor.ClassForErrorAttributeTagProcessor;
 import br.com.leandro.brewer.thymeleaf.processor.MessageElementTagProcessor;
+import br.com.leandro.brewer.thymeleaf.processor.OrderElementTagProcessor;
 import org.thymeleaf.dialect.AbstractProcessorDialect;
 import org.thymeleaf.processor.IProcessor;
 import org.thymeleaf.standard.StandardDialect;
@@ -24,6 +25,7 @@ public class BrewerDialect extends AbstractProcessorDialect {
         final Set<IProcessor> processadores = new HashSet<>(1);
         processadores.add(new ClassForErrorAttributeTagProcessor(dialectPrefix));
         processadores.add(new MessageElementTagProcessor(dialectPrefix));
+        processadores.add(new OrderElementTagProcessor(dialectPrefix));
         return processadores;
     }
 }
