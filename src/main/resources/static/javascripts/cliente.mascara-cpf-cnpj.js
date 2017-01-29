@@ -23,8 +23,8 @@ Brewer.MascaraCpfCnpj = (function () {
 
     }
 
-
     return MascaraCpfCnpj;
+
 }());
 
 $(function () {

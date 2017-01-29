@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:data="http://www.thymeleaf.org/extras/data"
       layout:decorator="layout/LayoutPadrao">
 <head>
     <meta charset="UTF-8"/>
@@ -54,18 +55,19 @@
 
                 <div class="form-group col-lg-3 col-sm-4">
                     <label>Tipo pessoa</label>
-                    <div>
-                        <div class="radio radio-inline">
-                            <input type="radio" name="tipo" id="id_FISICA" class="js-radio-tipo-pessoa"
-                                   data-documento="CPF" data-mascara="000.000.000-00"/>
-                            <label class="control-label" for="id_FISICA">Física</label>
+                        <div th:each="tipo : ${tipos}">
+
+                            <div class="radio radio-inline">
+                                <input type="radio" name="tipo" th:id="|id_${tipo}|"
+                                       id="id_FISICA" class="js-radio-tipo-pessoa"
+                                       data:documento="${tipo.documento}"
+                                       data:mascara="${tipo.mascara}"/>
+                                <label class="control-label" th:for="|id_${tipo}|"
+                                       th:text="${tipo.descricao}" for="id_FISICA">Física</label>
+                            </div>
+
                         </div>
-                        <div class="radio radio-inline">
-                            <input type="radio" name="tipo" id="id_JURIDICA" class="js-radio-tipo-pessoa"
-                                   data-documento="CNPJ" data-mascara="00.000.000/0000-00"/>
-                            <label class="control-label" for="id_JURIDICA" >Jurídica</label>
-                        </div>
-                    </div>
+
 
                 </div>
                 <div class="form-group  col-sm-4">
