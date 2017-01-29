@@ -44,10 +44,30 @@ Brewer.MaskPhoneNumber = (function() {
 }());
 
 
+Brewer.MaskCEP = (function() {
+
+    function MaskCEP() {
+        this.inputPhoneNumber = $('.js-input-cep');
+    }
+
+    MaskCEP.prototype.enable = function() {
+
+
+        this.inputPhoneNumber.mask('00.000-000');
+    }
+
+    return MaskCEP;
+
+}());
+
+
 $(function () {
     var maskMoney = new Brewer.MaskMoney();
     maskMoney.enable();
 
     var maskPhoneNumber = new Brewer.MaskPhoneNumber();
     maskPhoneNumber.enable();
+
+    var maskCep = new Brewer.MaskCEP();
+    maskCep.enable();
 });
